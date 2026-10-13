@@ -30,4 +30,35 @@ const validateRegister = (req, res, next) => {
     next();
 };
 
-module.exports = { validateRegister };
+
+const validateLogin = (req, res, next) => {
+    const { email, password } = req.body;
+
+    if (
+        typeof email !== "string" ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    ) {
+        return res.status(400).json({
+            success: false,
+            message: "A valid email is required"
+        });
+    }
+
+    if (
+        typeof password !== "string" ||
+        password.length === 0 ||
+        password.length > 72
+    ) {
+        return res.status(400).json({
+            success: false,
+            message: "A valid password is required"
+        });
+    }
+
+    next();
+};
+
+module.exports = {
+    validateRegister,
+    validateLogin
+};

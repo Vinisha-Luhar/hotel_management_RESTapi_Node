@@ -1,5 +1,5 @@
 
-const { registerUser } = require("../services/auth_service");
+const { registerUser, loginUser } = require("../services/auth_service");
 
 const register = async (req, res) => {
     try {
@@ -29,4 +29,23 @@ const register = async (req, res) => {
     }
 };
 
-module.exports = { register };
+const login = async (req, res) => {
+    try {
+        const result = await loginUser(req.body);
+
+        return res.status(200).json({
+            success: true,
+            message: "Login successful",
+            data: result
+        });
+    } catch (error) {
+        return res.status(error.statusCode || 500).json({
+            success: false,
+            message: error.statusCode
+                ? error.message
+                : "Internal server error"
+        });
+    }
+};
+
+module.exports = { register, login };
