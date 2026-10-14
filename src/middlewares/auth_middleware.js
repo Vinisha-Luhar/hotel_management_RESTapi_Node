@@ -31,6 +31,8 @@ const authenticate = (req, res, next) => {
             }
         );
 
+        console.log("Authenticated user ID:", payload.sub);
+
         // Ensure the token contains a user ID
         if (typeof payload.sub !== "string") {
             return res.status(401).json({
@@ -53,5 +55,7 @@ const authenticate = (req, res, next) => {
         });
     }
 };
+
+
 
 module.exports = { authenticate };
