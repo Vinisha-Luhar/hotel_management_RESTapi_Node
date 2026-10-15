@@ -2,7 +2,9 @@
 const express = require("express");
 
 const {
-  addFavoriteController, getMyFavoritesController
+  addFavoriteController, 
+  getMyFavoritesController,
+  removeFavoriteController
 } = require("../controllers/favorite_controller");
 
 const {
@@ -13,5 +15,6 @@ const router = express.Router();
 
 router.post("/:hotelId",authenticate,addFavoriteController);
 router.get("/", authenticate, getMyFavoritesController);
+router.delete("/:hotelId",authenticate,removeFavoriteController);
 
 module.exports = router;

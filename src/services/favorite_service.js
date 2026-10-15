@@ -66,4 +66,24 @@ const getMyFavorites = async (userId) => {
 };
 
 
-module.exports = { addFavorite, getMyFavorites };
+
+const removeFavorite = async (userId, hotelId) => {
+  const favorite = await Favorite.findOneAndDelete({
+    userId,
+    hotelId
+  });
+
+  if (!favorite) {
+    const error = new Error(
+      "Hotel is not in your favorites"
+    );
+    error.statusCode = 404;
+    throw error;
+  }
+
+  return favorite;
+};
+
+
+
+module.exports = { addFavorite, getMyFavorites, removeFavorite };

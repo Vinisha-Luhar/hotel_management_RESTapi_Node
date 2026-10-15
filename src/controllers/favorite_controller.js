@@ -1,5 +1,5 @@
 
-const { addFavorite, getMyFavorites } = require("../services/favorite_service");
+const { addFavorite, getMyFavorites, removeFavorite } = require("../services/favorite_service");
 
 const addFavoriteController = async (req, res, next) => {
   try {
@@ -34,4 +34,27 @@ const getMyFavoritesController = async (req, res, next) => {
 };
 
 
-module.exports = { addFavoriteController, getMyFavoritesController };
+
+const removeFavoriteController = async (req, res, next) => {
+  try {
+    await removeFavorite(
+      req.user.id,
+      req.params.hotelId
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Hotel removed from favorites"
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+module.exports = { 
+    addFavoriteController, 
+    getMyFavoritesController,
+    removeFavoriteController 
+};
