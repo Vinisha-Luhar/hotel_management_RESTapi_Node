@@ -2,32 +2,29 @@
 const mongoose = require("mongoose");
 
 const favoriteSchema = new mongoose.Schema(
-    {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: [true, "User ID is required"]
-        },
-
-        hotelId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Hotel",
-            required: [true, "Hotel ID is required"]
-        }
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     },
-    {
-        timestamps: true,
-        versionKey: false
+
+    hotelId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Hotel",
+      required: true
     }
+  },
+  {
+    timestamps: true,
+    versionKey: false
+  }
 );
 
-// Prevent the same user from favoriting
-// the same hotel more than once.
+// Prevent the same user from favoriting the same hotel twice.
 favoriteSchema.index(
-    { userId: 1, hotelId: 1 },
-    { unique: true }
+  { userId: 1, hotelId: 1 },
+  { unique: true }
 );
 
-const Favorite = mongoose.model("Favorite", favoriteSchema);
-
-module.exports = Favorite;
+module.exports = mongoose.model("Favorite", favoriteSchema);
