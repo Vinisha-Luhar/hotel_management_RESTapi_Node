@@ -4,6 +4,7 @@ const authRoutes = require("./routes/auth_routes.js");
 const userRoutes = require("./routes/user_routes");
 const hotelRoutes = require("./routes/hotel_routes");
 const favoriteRoutes = require("./routes/favorite_routes");
+const cartRoutes = require("./routes/cart_routes");
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/hotels", hotelRoutes);
 app.use("/api/v1/favorites", favoriteRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 module.exports = app;
